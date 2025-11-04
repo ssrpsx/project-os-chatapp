@@ -21,6 +21,7 @@ Additional features include:
 - ❤️ Heartbeat system to monitor connection health
 - ⚙️ Multithreading for concurrent command handling
 ---
+<br>
 
 ## 🧩 System Structure
 ### 🖥️ Server
