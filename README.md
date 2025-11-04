@@ -59,6 +59,47 @@ REGISTER, SAY, DM, JOIN, LEAVE, WHO, and BEAT.
 ---
 <br><br>
 
-# build image
+## Installation & Run with Docker
+### build image
+
 ```bash
 docker build -t chatapp .
+```
+
+### Run the Container
+
+```bash
+docker run -it --rm --ipc=host --name=<your-container-name> chatapp
+```
+
+### Inside the Container
+#### Run Server with synchronization
+```bash
+./server-synchronization
+```
+#### Run Client
+```bash
+./client
+```
+
+### Testing Mode (Optional)
+
+#### Run Client for spam context
+```bash
+./client-spam
+```
+
+#### Run Server with no-synchronization
+```bash
+./server-no-synchronization
+```
+
+### Exit & Cleanup
+#### To stop and remove the container
+```bash
+docker stop <your-container-name>
+```
+#### To remove the image completely
+```bash
+docker rmi chatapp
+```
