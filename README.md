@@ -21,6 +21,8 @@ Additional features include:
 - ❤️ Heartbeat system to monitor connection health
 - ⚙️ Multithreading for concurrent command handling
 
+---
+
 ## 🧩 System Structure
 ### 🖥️ Server
 
@@ -40,7 +42,7 @@ Additional features include:
 🔵 Blue-RTT of own message <br>
 💠 Light Blue-Server-to-Client latency (S2C)
 
----
+<br>
 
 📦 project/ <br>
  ┣ 📜 Dockerfile <br>
