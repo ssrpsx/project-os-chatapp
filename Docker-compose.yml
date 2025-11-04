@@ -7,7 +7,8 @@ services:
     working_dir: /app
     tty: true
 
-# docker run -it --rm --ipc=host chatapp
+# docker run -it --rm --ipc=host --name=<your container name> chatapp
+# docker run -it --rm --ipc=host --name=c1 chatapp
 
 ## for openning
 # docker compose up -d

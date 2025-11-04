@@ -3,6 +3,7 @@
 // ตัวแปร Global (หรือ static) สำหรับจับเวลา Ping
 std::atomic<std::chrono::system_clock::time_point> last_command_time;
 std::string client_name_global;
+std::atomic<bool> running(true);
 
 // ฟังก์ชันนี้จะคอยฟัง message queue ของตัวเอง
 void listen_queue(const std::string &qname)
@@ -25,6 +26,8 @@ void listen_queue(const std::string &qname)
         buffer[bytes] = '\0';
         std::string msg(buffer);
         auto end_time = std::chrono::system_clock::now(); // เวลาที่ได้รับ
+        
+        std::cout << msg << std::endl;
 
         // 1. ตรวจสอบข้อความ Server (ไม่มี timestamp)
         if (msg.find("[SERVER]") == 0) {
@@ -96,13 +99,13 @@ void listen_queue(const std::string &qname)
 void show_help()
 {
     std::cout << "--- Help ---\n";
-    std::cout << "SAY: <message>   (Send message to current room)\n";
-    std::cout << "JOIN: <room_name> (Join a new room)\n";
-    std::cout << "DM: <user> <msg>   (Send Direct Message)\n";
-    std::cout << "WHO                (List users in current room)\n";
-    std::cout << "LEAVE              (Leave current room, return to lobby)\n";
-    std::cout << "QUIT               (Disconnect from the server)\n";
-    std::cout << "HELP               (Show this help message)\n";
+    std::cout << "SAY: <message>       (Send message to current room)\n";
+    std::cout << "JOIN: <room_name>    (Join a new room)\n";
+    std::cout << "DM: <user> <msg>     (Send Direct Message)\n";
+    std::cout << "WHO                  (List users in current room)\n";
+    std::cout << "LEAVE                (Leave current room, return to lobby)\n";
+    std::cout << "QUIT                 (Disconnect from the server)\n";
+    std::cout << "HELP                 (Show this help message)\n";
     std::cout << "------------" << std::endl;
 }
 
@@ -110,10 +113,10 @@ void show_help()
 void heartbeat_thread(std::string qname)
 {
     std::string beat_msg = "BEAT:" + qname;
-    while(true)
+    while(running)
     {
-        // ส่งสัญญาณชีพทุก 10 วินาที
-        std::this_thread::sleep_for(std::chrono::seconds(10));
+        // ส่งสัญญาณชีพทุก 5 วินาที
+        std::this_thread::sleep_for(std::chrono::seconds(5));
         
         mqd_t hb_server_q = mq_open(CONTROL_Q, O_WRONLY);
         if (hb_server_q == (mqd_t)-1) {
@@ -128,6 +131,9 @@ void heartbeat_thread(std::string qname)
     }
 }
 
+void handle_sigint(int) {
+    running = false;
+}
 
 int main()
 {   
@@ -151,6 +157,8 @@ int main()
     }
     mq_close(client_q);
     
+    signal(SIGINT, handle_sigint);
+    signal(SIGTERM, handle_sigint);
     std::thread t(listen_queue, client_qname);
     
     mqd_t server_q = mq_open(CONTROL_Q, O_WRONLY);
@@ -165,10 +173,6 @@ int main()
     std::string reg_msg = "REGISTER:" + client_qname + ":" + client_name_global;
     mq_send(server_q, reg_msg.c_str(), reg_msg.size() + 1, 0);
     std::thread(heartbeat_thread, client_qname).detach();
-
-    // เพิ่ม: สตาร์ท Heartbeat Thread
-    std::thread(heartbeat_thread, client_qname).detach();
-
 
     std::cout << "\nRegistered as " << client_name_global << std::endl;
     std::cout << "Type 'HELP' for commands." << std::endl;
@@ -191,7 +195,6 @@ int main()
             mq_send(server_q, send_msg.c_str(), send_msg.size() + 1, 0);
         }
         else if (msg.find("JOIN:") == 0) {
-            // (JOIN ไม่ต้องจับเวลา)
             std::string room = msg.substr(5);
             if (room.empty()) continue;
             std::string send_msg = "JOIN:" + client_qname + ":" + room;
