@@ -6,4 +6,9 @@ RUN apt-get update && \
 
 WORKDIR /app
 
+# COPY ./ ./app
+
+# RUN g++ -o server server.cpp -pthread -lrt
+# RUN g++ -o client client.cpp -pthread -lrt
+
 CMD ["/bin/bash"]

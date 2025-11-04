@@ -12,8 +12,10 @@
 #include <string>
 #include <mutex>
 #include <vector>
-#include <map>         // สำหรับเก็บข้อมูลห้อง
-#include <algorithm>   // สำหรับค้นหาและลบ
+#include <map>
+#include <algorithm>
+#include <chrono>
+#include <atomic>
 
 #define size_of_message 1024
 
