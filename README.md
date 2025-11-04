@@ -58,27 +58,7 @@ REGISTER, SAY, DM, JOIN, LEAVE, WHO, and BEAT.
 
 ---
 <br><br>
-<button class="copy-btn" data-target="#docker-run">คัดลอก</button>
 
+```bash
 # build image
 docker build -t chatapp .
-
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  document.querySelectorAll('.copy-btn').forEach(btn=>{
-    btn.addEventListener('click', function(){
-      const target = this.getAttribute('data-target');
-      const el = document.querySelector(target);
-      if (!el) return;
-      const text = el.innerText;
-      navigator.clipboard?.writeText(text).then(()=>{
-        const old = this.innerText;
-        this.innerText = 'คัดลอกแล้ว ✓';
-        setTimeout(()=> this.innerText = old, 1500);
-      }).catch(()=>{
-        alert('ไม่สามารถคัดลอก: เบราว์เซอร์ไม่รองรับ clipboard API');
-      });
-    });
-  });
-});
-</script>
