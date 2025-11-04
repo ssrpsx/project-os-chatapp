@@ -72,7 +72,7 @@ docker build -t chatapp .
 docker run -it --rm --ipc=host --name=<your-container-name> chatapp
 ```
 
-<br>
+---
 
 ### Inside the Container
 #### Run Server with synchronization
@@ -84,7 +84,7 @@ docker run -it --rm --ipc=host --name=<your-container-name> chatapp
 ./client
 ```
 
-<br>
+---
 
 ### Testing Mode (Optional)
 
@@ -98,7 +98,7 @@ docker run -it --rm --ipc=host --name=<your-container-name> chatapp
 ./server-no-synchronization
 ```
 
-<br>
+---
 
 ### Exit & Cleanup
 #### To stop and remove the container
@@ -109,3 +109,5 @@ docker stop <your-container-name>
 ```bash
 docker rmi chatapp
 ```
+
+---
