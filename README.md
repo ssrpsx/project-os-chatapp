@@ -22,25 +22,25 @@ Additional features include:
 - ⚙️ Multithreading for concurrent command handling
 
 ## 🧩 System Structure
-🖥️ Server
+### 🖥️ Server
 
 - Acts as the central hub for all message queues.
 - Listens to a global queue /control_q to receive messages from clients.
 - Uses multithreading to handle each type of command concurrently (e.g., REGISTER, SAY, DM, WHO, etc.).
 - Includes a Heartbeat + Reaper Thread mechanism that automatically disconnects inactive clients (timeout > 20 seconds).
 
-👤 Client
+### 👤 Client
 - Each client creates its own unique message queue (e.g., /client_Phai).
 - Sends commands and receives responses via its dedicated queue.
 - Displays message latency (RTT/S2C) using colored output for clarity.
 
-## Color-Meaning
+## 🎨 Color-Meaning
 🟢 Green-Public message (SAY) <br>
 🟣 Purple-Private message (DM) <br>
 🔵 Blue-RTT of own message <br>
 💠 Light Blue-Server-to-Client latency (S2C)
 
---
+---
 
 📦 project/ <br>
  ┣ 📜 Dockerfile <br>
@@ -53,7 +53,7 @@ Additional features include:
  ┃  ┗ 📜 header.h <br>
  ┗ 📜 README.md <br>
 
---
+---
 
 ## 🧠 Core Functionality Overview
 ### 🔹 Server.cpp
