@@ -59,6 +59,6 @@ REGISTER, SAY, DM, JOIN, LEAVE, WHO, and BEAT.
 ---
 <br><br>
 
-```bash
 # build image
+```bash
 docker build -t chatapp .
