@@ -21,7 +21,6 @@ Additional features include:
 - ❤️ Heartbeat system to monitor connection health
 - ⚙️ Multithreading for concurrent command handling
 ---
-<br>
 
 ## 🧩 System Structure
 ### 🖥️ Server
@@ -57,7 +56,7 @@ REGISTER, SAY, DM, JOIN, LEAVE, WHO, and BEAT.
 - Measures and displays latency (RTT and S2C delay) with different color codes for better visualization.
 
 ---
-<br><br>
+<br>
 
 ## Installation & Run with Docker
 ### build image
