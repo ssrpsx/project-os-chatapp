@@ -60,6 +60,11 @@ REGISTER, SAY, DM, JOIN, LEAVE, WHO, and BEAT.
 <br>
 
 ## Installation & Run with Docker
+### Git clone this repo
+```bash
+git clone https://github.com/ssrpsx/project-os-chat-app.git
+```
+
 ### build image
 
 ```bash
